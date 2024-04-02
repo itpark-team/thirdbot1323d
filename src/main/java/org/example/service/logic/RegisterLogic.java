@@ -17,20 +17,6 @@ public class RegisterLogic {
         registrationsRepository = new RegistrationsRepository();
     }
 
-    public SendMessage processWaitingCommandStart(String textFromUser, TransmittedData transmittedData) throws Exception {
-        SendMessage messageToUser = new SendMessage();
-        messageToUser.setChatId(transmittedData.getChatId());
-
-        if (textFromUser.equals("/start") == false) {
-            messageToUser.setText("Ошибка запуска бота. Для старта пожалуйста введите /start");
-            return messageToUser;
-        }
-
-        messageToUser.setText("Начало регистрации. Пожалуйста введите название команды длиной от 1 до 30 символов");
-        transmittedData.setState(State.WaitingInputTeamName);
-
-        return messageToUser;
-    }
 
     public SendMessage processWaitingInputTeamName(String textFromUser, TransmittedData transmittedData) throws Exception {
         SendMessage messageToUser = new SendMessage();
@@ -131,7 +117,7 @@ public class RegisterLogic {
         } else if (textFromUser.equals(InlineButtonsStorage.DisapproveRegister.getCallBackData()) == true) {
             transmittedData.getDataStorage().clear();
 
-            messageToUser.setText("Регистрация успешно отменена. Вернитесь в начало регистрации путём нажатия на /start");
+            messageToUser.setText("Регистрация успешно отменена. Вернитесь в начало путём нажатия на /start");
         }
 
         transmittedData.setState(State.WaitingCommandStart);
